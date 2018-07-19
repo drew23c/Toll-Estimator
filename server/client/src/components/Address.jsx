@@ -8,8 +8,9 @@ class Address extends Component{
         this.state={
             appId: api.HereAppId,
             appCode: api.HereAppCode,
-            output:'',
-            search:''
+            longitude:'',
+            latitude:'',
+            suggest:[]
         }
     }
     handleChange = (e) =>{
@@ -19,26 +20,51 @@ class Address extends Component{
     }
     handleSubmit = (e) =>{
         e.preventDefault()
+
         axios.get('https://geocoder.cit.api.here.com/6.2/geocode.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&searchtext=' + this.state.search)
         .then((res)=>{
-        //     this.setState({
-        //         search: data
-        // })
-        console.log(res.data)
-    })
+            this.setState({
+                longitude: res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude,
+                latitude:res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude
+            })
+        console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
+        axios.get('http://autocomplete.geocoder.cit.api.here.com/6.2/suggest.json?app_id=' + api.HereAppId + '&app_code=' + api.HereAppCode + '&query=' + this.state.search + '&beginHighlight=<b>&endHighlight=</b>')
+        .then((res)=>{
+            this.setState({
+                suggest: res.data.suggestions
+            })
+        console.log(res.data.suggestions[0].address)
+        })
         .catch(err=>{
             console.log(err)
         })
     }
     render(){
-        let {output, search} = this.state;
+        let {longitude, latitude} = this.state;
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="search" value={search} onChange={this.handleChange}/>
+                    <input type="text" name="search" onChange={this.handleChange}/>
                     <button>Submit</button>
                 </form>
-                <div>{output}</div>
+                <div>
+                    <p>Latitude: {latitude}</p>
+                    <p>Longitude: {longitude}</p>
+                </div>
+                <div>
+                    <h2>SUGGESTIONS</h2>
+                    <ul>
+                        {this.state.suggest.map(s=><li>
+                            {s.address.houseNumber} {s.address.street}
+                            {s.address.city} {s.address.state} {s.address.postalCode}
+                        </li>)}
+                    </ul>
+                </div>
             </div>
         )
     }
