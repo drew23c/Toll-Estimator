@@ -8,16 +8,16 @@ class Home extends Component{
         this.state={
             appId: api.HereAppId,
             appCode: api.HereAppCode,
-            mapURL:''
+            mapURL:[]
         }
     }
     componentDidMount(){
-        axios.get('https://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=' + api.HereAppId + '&app_code=' + api.HereAppCode + '&c=40.7033962,-74.0449455&h=800&w=800')
+        axios.get('http://localhost:3100/map')
         .then(res=>{
             this.setState({
-                mapURL: res.config.url
+                mapURL: res.data.data[0].map_url
             })
-            console.log(res.config.url)
+            // console.log(res.data.data[0].map_url)
         })
         .catch(err=>{
             console.log(err)
