@@ -13,8 +13,14 @@ class Address extends Component{
             Olatitude:'',
             Dlongitude:'',
             Dlatitude:'',
-            suggest:[]
+            suggest:[],
+            directions:''
         }
+    }
+    handleInput = (e) =>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
     }
     handleChange = (e) =>{
         this.setState({
@@ -35,17 +41,6 @@ class Address extends Component{
         .catch(err=>{
             console.log(err)
         })
-
-        // axios.get('http://autocomplete.geocoder.cit.api.here.com/6.2/suggest.json?app_id=' + api.HereAppId + '&app_code=' + api.HereAppCode + '&query=' + this.state.search + '&beginHighlight=<b>&endHighlight=</b>')
-        // .then((res)=>{
-        //     this.setState({
-        //         suggest: res.data.suggestions
-        //     })
-        // console.log(res.data.suggestions[0].address)
-        // })
-        // .catch(err=>{
-        //     console.log(err)
-        // })
     }
     handleSubmitDest = (e) =>{
         e.preventDefault()
@@ -65,52 +60,41 @@ class Address extends Component{
     handleDirections = (e) =>{
         let {Olatitude,Olongitude, Dlatitude, Dlongitude} = this.state
         e.preventDefault()
-        axios.post('https://route.cit.api.here.com/routing/7.2/calculateroute.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&waypoint0=geo!' + Olatitude + ',' + Olongitude + '&waypoint1=geo!' + Dlatitude + ',' + Dlongitude + '&mode=fastest;car;traffic:disabled',{
-            Olatitude:Olatitude,
-            Olongitude:Olongitude,
-            Dlatitude:Dlatitude,
-            Dlongitude:Dlongitude
-        })
+        axios.post('https://route.cit.api.here.com/routing/7.2/calculateroute.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&waypoint0=geo!' + Olatitude + ',' + Olongitude + '&waypoint1=geo!' + Dlatitude + ',' + Dlongitude + '&mode=fastest;car;traffic:disabled')
         .then((res)=>{
             this.setState({
-
+                
             })
-            console.log('click')
+            console.log(res.data)
         })
     }
     render(){
-        let {Olongitude, Olatitude, Dlongitude, Dlatitude} = this.state;
+        let {Olongitude, Olatitude, Dlongitude, Dlatitude, directions} = this.state;
         return(
             <div>
                 <h1>Route</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="search" onChange={this.handleChange}/>
+                    <input type="text" name="search" onInput={this.handleInput}/>
                     <button>Submit</button>
                 </form>
                 <form onSubmit={this.handleSubmitDest}>
-                        <input type="text" name="search" onChange={this.handleChange}/>
+                        <input type="text" name="search" onInput={this.handleInput}/>
                         <button>Submit</button>
                 </form>
                     <h2>Origin</h2>
-                    <p>Latitude: {Olatitude}</p>
-                    <p>Longitude: {Olongitude}</p>
+                    <p name="Olatitude" onChange={this.handleChange}>Latitude: {Olatitude}</p>
+                    <p name="Olongitude" onChange={this.handleChange}>Longitude: {Olongitude}</p>
                     <h2>Destination</h2>
-                    <p>Latitude: {Dlatitude}</p>
-                    <p>Longitude: {Dlongitude}</p>
-
+                    <p name="Dlatitude" onChange={this.handleChange}>Latitude: {Dlatitude}</p>
+                    <p name="Dlongitude" onChange={this.handleChange}>Longitude: {Dlongitude}</p>
                 <div>
-                    {/* <h2>SUGGESTIONS</h2>
-                    <ul>
-                        {this.state.suggest.map(s=><li>
-                            {s.address.houseNumber} {s.address.street}
-                            {s.address.city} {s.address.state} {s.address.postalCode}
-                        </li>)}
-                    </ul> */}
                 </div>
                 <h2>Directions</h2>
-
-                <button onClick={this.handleDirections}>My Directions</button>
-            </div>
+                    <button onClick={this.handleDirections}>My Directions</button>
+                    <div>
+                        {directions}
+                    </div>
+                </div>
         )
     }
 }
