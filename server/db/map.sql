@@ -1,0 +1,9 @@
+DROP DATABASE IF EXISTS map;
+CREATE DATABASE map;
+
+\c map;
+
+CREATE TABLE map(
+    id SERIAL PRIMARY KEY,
+    map_url VARCHAR UNIQUE
+);

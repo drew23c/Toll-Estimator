@@ -12,12 +12,12 @@ class Home extends Component{
         }
     }
     componentDidMount(){
-        axios.get('https://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=' + api.HereAppId + '&app_code=' + api.HereAppCode + '&c=40.7033962,-74.0449455&h=800&w=800')
+        axios.get('http://localhost:3100/map')
         .then(res=>{
             this.setState({
-                mapURL: res.config.url
+                mapURL: res.data.data[0].map_url
             })
-            console.log(res.config.url)
+            // console.log(res.data.data[0].map_url)
         })
         .catch(err=>{
             console.log(err)
@@ -28,7 +28,10 @@ class Home extends Component{
         return(
             <div>
                 <h1>Toll Estimator</h1>
+                {mapURL? 
                 <img src={mapURL} alt="map" />
+                :
+                <h2>Loading...</h2>}
             </div>
         )
     }

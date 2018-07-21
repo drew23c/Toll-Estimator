@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {Link, Switch, Route} from 'react-router-dom';
 import Home from './components/Home';
-import Address from './components/Address';
+import Routes from './components/MapRoute';
 
 class App extends Component {
   render() {
@@ -11,10 +11,10 @@ class App extends Component {
       <div className="App">
         <nav>
           <Link to='/'>Home</Link>{" "}
-          <Link to='/address'>Address</Link>{" "}
+          <Link to='/address'>Routes</Link>{" "}
         </nav>
         <Route exact path="/" component={Home}/>
-        <Route path="/address" component={Address}/>
+        <Route path="/address" component={Routes}/>
       </div>
     );
   }
