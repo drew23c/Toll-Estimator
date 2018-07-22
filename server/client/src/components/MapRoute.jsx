@@ -14,7 +14,8 @@ class Address extends Component{
             Dlongitude:'',
             Dlatitude:'',
             suggest:[],
-            directions:[]
+            directions:[],
+            duration:''
         }
     }
     handleInput = (e) =>{
@@ -30,13 +31,13 @@ class Address extends Component{
     handleSubmit = (e) =>{
         e.preventDefault()
 
-        axios.get('https://geocoder.cit.api.here.com/6.2/geocode.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&searchtext=' + this.state.search)
+        axios.get('https://geocoder.cit.api.here.com/6.2/geocode.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&searchtext=' + this.state.searchOrigin)
         .then((res)=>{
             this.setState({
                 Olongitude: res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude,
                 Olatitude:res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude
             })
-        console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
+        // console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
         })
         .catch(err=>{
             console.log(err)
@@ -45,13 +46,13 @@ class Address extends Component{
     handleSubmitDest = (e) =>{
         e.preventDefault()
 
-        axios.get('https://geocoder.cit.api.here.com/6.2/geocode.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&searchtext=' + this.state.search)
+        axios.get('https://geocoder.cit.api.here.com/6.2/geocode.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&searchtext=' + this.state.searchDestination)
         .then((res)=>{
             this.setState({
                 Dlongitude: res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude,
                 Dlatitude:res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude
             })
-        console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
+        // console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
         })
         .catch(err=>{
             console.log(err)
@@ -63,23 +64,24 @@ class Address extends Component{
         axios.post('https://route.cit.api.here.com/routing/7.2/calculateroute.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&waypoint0=geo!' + Olatitude + ',' + Olongitude + '&waypoint1=geo!' + Dlatitude + ',' + Dlongitude + '&mode=fastest;car;traffic:disabled')
         .then((res)=>{
             this.setState({
-                directions: res.data.response.route[0].leg[0].maneuver
+                directions: res.data.response.route[0].leg[0].maneuver,
+                duration:res.data.response.route[0].summary.text,
             })
-            console.log(res.data.response)
+            console.log(res.data)
         })
     }
     render(){
-        let {Olongitude, Olatitude, Dlongitude, Dlatitude} = this.state;
+        let {Olongitude, Olatitude, Dlongitude, Dlatitude, duration} = this.state;
         return(
             <div>
                 <h1>Route</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="search" onInput={this.handleInput}/>
-                    <button>Submit</button>
+                    <input type="text" name="searchOrigin" onInput={this.handleInput}/>
+                    <button name="origin">Submit</button>
                 </form>
                 <form onSubmit={this.handleSubmitDest}>
-                        <input type="text" name="search" onInput={this.handleInput}/>
-                        <button>Submit</button>
+                        <input type="text" name="searchDestination" onInput={this.handleInput}/>
+                        <button name="dest">Submit</button>
                 </form>
                     <h2>Origin</h2>
                     <p name="Olatitude" onChange={this.handleChange}>Latitude: {Olatitude}</p>
@@ -92,8 +94,9 @@ class Address extends Component{
                 <h2>Directions</h2>
                     <button onClick={this.handleDirections}>My Directions</button>
                     <div>
+                            <h2>{duration}</h2>
                         <ul>
-                            {this.state.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}
+                            <b>{this.state.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}</b>
                         </ul>
                     </div>
                 </div>
