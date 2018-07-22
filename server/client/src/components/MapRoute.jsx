@@ -14,7 +14,7 @@ class Address extends Component{
             Dlongitude:'',
             Dlatitude:'',
             suggest:[],
-            directions:''
+            directions:[]
         }
     }
     handleInput = (e) =>{
@@ -63,13 +63,13 @@ class Address extends Component{
         axios.post('https://route.cit.api.here.com/routing/7.2/calculateroute.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&waypoint0=geo!' + Olatitude + ',' + Olongitude + '&waypoint1=geo!' + Dlatitude + ',' + Dlongitude + '&mode=fastest;car;traffic:disabled')
         .then((res)=>{
             this.setState({
-                
+                directions: res.data.response.route[0].leg[0].maneuver
             })
-            console.log(res.data)
+            console.log(res.data.response)
         })
     }
     render(){
-        let {Olongitude, Olatitude, Dlongitude, Dlatitude, directions} = this.state;
+        let {Olongitude, Olatitude, Dlongitude, Dlatitude} = this.state;
         return(
             <div>
                 <h1>Route</h1>
@@ -92,7 +92,9 @@ class Address extends Component{
                 <h2>Directions</h2>
                     <button onClick={this.handleDirections}>My Directions</button>
                     <div>
-                        {directions}
+                        <ul>
+                            {this.state.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}
+                        </ul>
                     </div>
                 </div>
         )

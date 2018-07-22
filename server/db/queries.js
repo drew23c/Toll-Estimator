@@ -14,8 +14,8 @@ seed = (url) =>{
     })
 }
 
-getMap = (req, res, next) =>{
-    db.any('SELECT * FROM map')
+getMap = async (req, res, next) =>{
+    await db.any('SELECT * FROM map')
     .then((data)=>{
         res.status(200).json({
             status:'success',

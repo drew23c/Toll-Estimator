@@ -7,7 +7,3 @@ CREATE TABLE map(
     id SERIAL PRIMARY KEY,
     map_url VARCHAR UNIQUE
 );
-CREATE TABLE address(
-    id SERIAL PRIMARY KEY,
-    address VARCHAR
-);
