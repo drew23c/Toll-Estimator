@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import api from '../secret/api';
+import './style/home.css';
 
 class Home extends Component{
     constructor(){
@@ -26,8 +27,13 @@ class Home extends Component{
     render(){
         let {mapURL} = this.state
         return(
-            <div>
-                <h1>Toll Estimator</h1>
+            <div className="home">
+                <div className="jumbotron jumbotron-fluid">
+                    <div className="container">
+                        <h1 className="display-4">Toll Estimator</h1>
+                        <p className="lead">Enter your route and get an estimate the cost of tolls.</p>
+                    </div>
+                </div>
                 {mapURL? 
                 <img src={mapURL} alt="map" />
                 :

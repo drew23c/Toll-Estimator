@@ -1,0 +1,9 @@
+.route{
+    background-color:purple;
+    padding-bottom:3%;
+    width: 70%;
+}
+.directions b li{
+    list-style-type:none;
+    text-align: left;
+}

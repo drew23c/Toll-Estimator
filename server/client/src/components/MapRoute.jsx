@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import api from '../secret/api';
+import './style/mapRoute.css';
 
 class Address extends Component{
     constructor(){
@@ -73,7 +74,7 @@ class Address extends Component{
     render(){
         let {Olongitude, Olatitude, Dlongitude, Dlatitude, duration} = this.state;
         return(
-            <div>
+            <div className="route">
                 <h1>Route</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name="searchOrigin" onInput={this.handleInput}/>
@@ -95,7 +96,7 @@ class Address extends Component{
                     <button onClick={this.handleDirections}>My Directions</button>
                     <div>
                             <h2>{duration}</h2>
-                        <ul>
+                        <ul className="directions">
                             <b>{this.state.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}</b>
                         </ul>
                     </div>
