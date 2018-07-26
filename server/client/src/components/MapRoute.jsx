@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import api from '../secret/api';
 import './style/mapRoute.css';
+import {Route, Switch} from 'react-router-dom';
+import Coord from './Coord';
 
 class Address extends Component{
     constructor(){
@@ -71,36 +73,31 @@ class Address extends Component{
             console.log(res.data)
         })
     }
+    renderCoord = () =>{
+        let {Olatitude, Olongitude, Dlatitude, Dlongitude, directions, duration} = this.state
+        return(
+            <Coord
+                submit={this.handleSubmit}
+                submitDest={this.handleSubmitDest}
+                change={this.handleChange}
+                input={this.handleInput}
+                OLat={Olatitude}
+                OLon={Olongitude}
+                DLat={Dlatitude}
+                DLon={Dlongitude}
+                submitDir={this.handleDirections}
+                duration={duration}
+                directions={directions}
+            />
+        )
+    }
     render(){
-        let {Olongitude, Olatitude, Dlongitude, Dlatitude, duration} = this.state;
         return(
             <div className="route">
-                <h1>Route</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="searchOrigin" onInput={this.handleInput}/>
-                    <button name="origin">Submit</button>
-                </form>
-                <form onSubmit={this.handleSubmitDest}>
-                        <input type="text" name="searchDestination" onInput={this.handleInput}/>
-                        <button name="dest">Submit</button>
-                </form>
-                    <h2>Origin</h2>
-                    <p name="Olatitude" onChange={this.handleChange}>Latitude: {Olatitude}</p>
-                    <p name="Olongitude" onChange={this.handleChange}>Longitude: {Olongitude}</p>
-                    <h2>Destination</h2>
-                    <p name="Dlatitude" onChange={this.handleChange}>Latitude: {Dlatitude}</p>
-                    <p name="Dlongitude" onChange={this.handleChange}>Longitude: {Dlongitude}</p>
-                <div>
-                </div>
-                <h2>Directions</h2>
-                    <button onClick={this.handleDirections}>My Directions</button>
-                    <div>
-                            <h2>{duration}</h2>
-                        <ul className="directions">
-                            <b>{this.state.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}</b>
-                        </ul>
-                    </div>
-                </div>
+                <Switch>
+                    <Route exact path="/address" render={this.renderCoord} />
+                </Switch>
+            </div>
         )
     }
 }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import api from '../secret/api';
 import './style/home.css';
+import Carousel from './Carousel';
 
 class Home extends Component{
     constructor(){
@@ -34,6 +35,7 @@ class Home extends Component{
                         <p className="lead">Enter your route and get an estimate the cost of tolls.</p>
                     </div>
                 </div>
+                <Carousel/>
                 {mapURL? 
                 <img src={mapURL} alt="map" />
                 :
