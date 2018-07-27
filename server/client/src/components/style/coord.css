@@ -1,0 +1,15 @@
+.coord{
+    margin-top:5%;
+    margin-right:40%;
+}
+.modal-body{
+    background-color:rgb(156, 156, 241);
+}
+.directions{
+    width:70%;
+    float:right;
+}
+.directions-heading{
+    width:70%;
+    float:right;
+}

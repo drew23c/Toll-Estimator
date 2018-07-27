@@ -1,8 +1,17 @@
 import React from 'react';
+import {Modal, Button, FormGroup, FormControl} from 'react-bootstrap';
+import './style/coord.css'
 
 const Coord = (props) =>{
     return(
         <div>
+            <Modal.Dialog className="coord">
+                <Modal.Header className="modal-body">
+                <Modal.Title>Map My Route</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body className="modal-body">
+                <div>
             <h1>Route</h1>
                 <form onSubmit={props.submit}>
                     <input type="text" name="searchOrigin" onInput={props.input}/>
@@ -21,12 +30,15 @@ const Coord = (props) =>{
             <div>
                 <h2>Directions</h2>
                 <button onClick={props.submitDir}>My Directions</button>
-                <div>
-                    <h2>{props.duration}</h2>
-                    <ul className="directions">
-                        <b>{props.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}</b>
-                    </ul>
-                </div>
+            </div>
+        </div>
+                </Modal.Body>
+            </Modal.Dialog>
+            <div className="directions">
+                <h2 className="directions-heading">{props.duration}</h2>
+                <ul className="directions">
+                    <b>{props.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}</b>
+                </ul>
             </div>
         </div>
     )

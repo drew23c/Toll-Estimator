@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import api from '../secret/api';
 import './style/home.css';
-import Carousel from './Carousel';
+import {Jumbotron, Button} from 'react-bootstrap';
+import HomeCarousel from './Carousel';
 
 class Home extends Component{
     constructor(){
@@ -29,17 +30,27 @@ class Home extends Component{
         let {mapURL} = this.state
         return(
             <div className="home">
-                <div className="jumbotron jumbotron-fluid">
-                    <div className="container">
-                        <h1 className="display-4">Toll Estimator</h1>
-                        <p className="lead">Enter your route and get an estimate the cost of tolls.</p>
+                <Jumbotron>
+                    <h1>Toll Estimator</h1>
+                    <p>
+                        This is a simple hero unit, a simple jumbotron-style component for calling
+                        extra attention to featured content or information.
+                    </p>
+                    <p>
+                        <Button bsStyle="primary">Learn more</Button>
+                    </p>
+                </Jumbotron>
+                <div>
+                    <div>
+                        <HomeCarousel/>
+                    </div>    
+                    <div className="map">
+                        {mapURL? 
+                        <img src={mapURL} alt="map" />
+                        :
+                        <h2>Loading...</h2>}
                     </div>
                 </div>
-                <Carousel/>
-                {mapURL? 
-                <img src={mapURL} alt="map" />
-                :
-                <h2>Loading...</h2>}
             </div>
         )
     }

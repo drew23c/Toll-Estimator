@@ -40,7 +40,7 @@ class Address extends Component{
                 Olongitude: res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude,
                 Olatitude:res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude
             })
-        // console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
+        console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
         })
         .catch(err=>{
             console.log(err)
@@ -55,7 +55,7 @@ class Address extends Component{
                 Dlongitude: res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude,
                 Dlatitude:res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude
             })
-        // console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
+        console.log(res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude)
         })
         .catch(err=>{
             console.log(err)
@@ -68,7 +68,7 @@ class Address extends Component{
         .then((res)=>{
             this.setState({
                 directions: res.data.response.route[0].leg[0].maneuver,
-                duration:res.data.response.route[0].summary.text,
+                duration:res.data.response.route[0].summary.text
             })
             console.log(res.data)
         })
@@ -93,7 +93,7 @@ class Address extends Component{
     }
     render(){
         return(
-            <div className="route">
+            <div>
                 <Switch>
                     <Route exact path="/address" render={this.renderCoord} />
                 </Switch>

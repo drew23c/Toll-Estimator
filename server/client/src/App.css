@@ -1,12 +1,15 @@
+*{
+  padding:0px;
+}
 .App {
   text-align: center;
-  background-image:url('./components/background.jpg');
+  background-color:beige;
   background-size:cover;
-  height:125vh; 
+  height:100vh; 
 }
 .navigation{
   background-color:black;
 }
 .navigation a{
-  color: purple;
+  color: beige;
 }

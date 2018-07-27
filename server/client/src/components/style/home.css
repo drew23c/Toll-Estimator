@@ -1,3 +1,7 @@
 .jumbotron{
-    background-color:purple !important;
+    background-color:gainsboro !important;
+}
+.map{
+    float:right;
+    margin-bottom:40%;
 }

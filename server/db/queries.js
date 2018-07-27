@@ -31,7 +31,7 @@ getMap = async (req, res, next) =>{
     })
 }
 
-seed('https://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=' + api.HereAppId + '&app_code=' + api.HereAppCode + '&c=40.7033962,-74.0449455&h=800&w=800')
+seed('https://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=' + api.HereAppId + '&app_code=' + api.HereAppCode + '&c=40.7033962,-74.0449455&h=600&w=900')
 
 module.exports = {
     seed,
