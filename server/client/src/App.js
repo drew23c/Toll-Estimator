@@ -16,8 +16,9 @@ class App extends Component {
             <Link to="/address">Route</Link>
           </Navbar.Brand>
         </Navbar.Header>
-        <Nav>
-        </Nav>
+        <Navbar.Brand>
+          <Navbar.Text pullRight><Link to="/login">Login/Sign Up</Link></Navbar.Text>
+        </Navbar.Brand>>
       </Navbar>
         <Switch>
           <Route exact path="/" component={Home}/>
