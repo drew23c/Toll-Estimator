@@ -31,7 +31,7 @@ class Home extends Component{
         return(
             <div className="home">
                 <Jumbotron>
-                    <h1>Toll Estimator</h1>
+                    <h1>NYC Toll Estimator</h1>
                     <p>
                         This is a simple hero unit, a simple jumbotron-style component for calling
                         extra attention to featured content or information.

@@ -1,6 +1,7 @@
 .coord{
-    margin-top:5%;
+    margin-top:10% !important;
     margin-right:40%;
+    margin-left:3% !important;
 }
 .modal-body{
     background-color:rgb(156, 156, 241);
@@ -8,6 +9,7 @@
 .directions{
     width:70%;
     float:right;
+    margin-right:5% !important;
 }
 .directions-heading{
     width:70%;

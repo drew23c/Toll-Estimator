@@ -1,11 +1,12 @@
 *{
-  padding:0px;
+  margin:0 !important;
 }
 .App {
   text-align: center;
   background-color:beige;
   background-size:cover;
-  height:100vh; 
+  height:100vh;
+  margin:0; 
 }
 .navigation{
   background-color:black;

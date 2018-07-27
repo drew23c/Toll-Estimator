@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Button, FormGroup, FormControl} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import './style/coord.css'
 
 const Coord = (props) =>{
@@ -7,28 +7,28 @@ const Coord = (props) =>{
         <div>
             <Modal.Dialog className="coord">
                 <Modal.Header className="modal-body">
-                <Modal.Title>Map My Route</Modal.Title>
+                <Modal.Title><h1>Map My Route</h1></Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body className="modal-body">
                 <div>
-            <h1>Route</h1>
+            <h3>Route</h3>
                 <form onSubmit={props.submit}>
-                    <input type="text" name="searchOrigin" onInput={props.input}/>
+                    <input type="text" name="searchOrigin" onInput={props.input} placeholder="Origin"/>
                     <button name="origin">Submit</button>
                 </form>
                 <form onSubmit={props.submitDest}>
-                        <input type="text" name="searchDestination" onInput={props.input}/>
+                        <input type="text" name="searchDestination" onInput={props.input} placeholder="Destination"/>
                         <button name="dest">Submit</button>
                 </form>
-                <h2>Origin</h2>
+                <h3>Origin</h3>
                 <p name="Olatitude" onChange={props.change}>Latitude: {props.OLat}</p>
                 <p name="Olongitude" onChange={props.change}>Longitude: {props.OLon}</p>
-                <h2>Destination</h2>
+                <h3>Destination</h3>
                 <p name="Dlatitude" onChange={props.change}>Latitude: {props.DLat}</p>
                 <p name="Dlongitude" onChange={props.change}>Longitude: {props.DLon}</p>
             <div>
-                <h2>Directions</h2>
+                <h3>Directions</h3>
                 <button onClick={props.submitDir}>My Directions</button>
             </div>
         </div>
@@ -40,6 +40,7 @@ const Coord = (props) =>{
                     <b>{props.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}</b>
                 </ul>
             </div>
+            <div id="getMap"></div>
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Link, Switch, Route} from 'react-router-dom';
 import Home from './components/Home';
@@ -19,7 +18,7 @@ class App extends Component {
         </Navbar.Header>
         <Nav>
         </Nav>
-      </Navbar>;
+      </Navbar>
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/address" component={Routes}/>

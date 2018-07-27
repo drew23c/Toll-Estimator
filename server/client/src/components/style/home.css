@@ -1,5 +1,6 @@
 .jumbotron{
-    background-color:gainsboro !important;
+    background-color:rgb(156, 156, 241) !important;
+    margin:0;
 }
 .map{
     float:right;
