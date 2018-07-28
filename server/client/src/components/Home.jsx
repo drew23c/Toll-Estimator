@@ -33,8 +33,7 @@ class Home extends Component{
                 <Jumbotron>
                     <h1>NYC Toll Estimator</h1>
                     <p>
-                        This is a simple hero unit, a simple jumbotron-style component for calling
-                        extra attention to featured content or information.
+                        Enter the origin and destination to calculate the amount you will need for the trip.
                     </p>
                     <p>
                         <Button bsStyle="primary">Learn more</Button>
