@@ -1,33 +1,17 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import api from '../secret/api';
 import './style/home.css';
 import {Jumbotron, Button} from 'react-bootstrap';
 import HomeCarousel from './Carousel';
+import {connect} from 'react-redux';
+import {getMap} from '../actions/mapActions'
+
 
 class Home extends Component{
-    constructor(){
-        super()
-        this.state={
-            appId: api.HereAppId,
-            appCode: api.HereAppCode,
-            mapURL:''
-        }
-    }
     componentDidMount(){
-        axios.get('http://localhost:3100/map')
-        .then(res=>{
-            this.setState({
-                mapURL: res.data.data[0].map_url
-            })
-            // console.log(res.data.data[0].map_url)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        this.props.getMap()
     }
     render(){
-        let {mapURL} = this.state
+        let {map} = this.props
         return(
             <div className="home">
                 <Jumbotron>
@@ -44,8 +28,8 @@ class Home extends Component{
                         <HomeCarousel/>
                     </div>    
                     <div className="map">
-                        {mapURL? 
-                        <img src={mapURL} alt="map" />
+                        {map? 
+                        <img src={map} alt="map" />
                         :
                         <h2>Loading...</h2>}
                     </div>
@@ -54,4 +38,11 @@ class Home extends Component{
         )
     }
 }
-export default Home;
+
+const mapStateToProps = state  => {
+    return{
+        map: state.map.mapURL
+    }
+};
+
+export default connect(mapStateToProps, {getMap}) (Home);

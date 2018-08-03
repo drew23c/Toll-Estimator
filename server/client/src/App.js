@@ -3,7 +3,7 @@ import './App.css';
 import {Link, Switch, Route} from 'react-router-dom';
 import Home from './components/Home';
 import Routes from './components/MapRoute';
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar} from 'react-bootstrap';
 
 class App extends Component {
   render() {
