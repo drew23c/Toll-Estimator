@@ -37,7 +37,7 @@ const Coord = (props) =>{
             <div className="directions">
                 <h2 className="directions-heading">{props.duration}</h2>
                 <ul className="directions">
-                    <b>{props.directions.map(direction=><li key={direction.id}>{direction.instruction}</li>)}</b>
+                    <b>{props.directions.map(direction=><li>{direction.encoded_polyline}<br/>{direction.html_instructions}<br/>{direction.duration.value}</li>)}</b>
                 </ul>
             </div>
             <div id="getMap"></div>

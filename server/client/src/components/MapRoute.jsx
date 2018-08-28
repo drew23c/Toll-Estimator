@@ -16,9 +16,7 @@ class Address extends Component{
             Olatitude:'',
             Dlongitude:'',
             Dlatitude:'',
-            suggest:[],
-            directions:[],
-            duration:''
+            directions:[]
         }
     }
     handleInput = (e) =>{
@@ -30,6 +28,9 @@ class Address extends Component{
         this.setState({
             [e.target.name]:e.target.value
         })
+    }
+    componentDidUpdate(){
+        
     }
     handleSubmit = (e) =>{
         e.preventDefault()
@@ -64,17 +65,19 @@ class Address extends Component{
     handleDirections = (e) =>{
         let {Olatitude,Olongitude, Dlatitude, Dlongitude} = this.state
         e.preventDefault()
-        axios.post('https://route.cit.api.here.com/routing/7.2/calculateroute.json?app_id=' + this.state.appId + '&app_code=' + this.state.appCode + '&waypoint0=geo!' + Olatitude + ',' + Olongitude + '&waypoint1=geo!' + Dlatitude + ',' + Dlongitude + '&mode=fastest;car;traffic:disabled')
-        .then((res)=>{
+        axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + Olatitude + ',' + Olongitude + '&destination=' + Dlatitude + ',' + Dlongitude)
+        .then(res=>{
             this.setState({
-                directions: res.data.response.route[0].leg[0].maneuver,
-                duration:res.data.response.route[0].summary.text
+                directions: res.data.routes[0].legs[0].steps
             })
-            // console.log(res.data)
+            // console.log(res.data.routes[0].legs[0].steps)
+        })
+        .catch(err=>{
+            console.log(err)
         })
     }
     renderCoord = () =>{
-        let {Olatitude, Olongitude, Dlatitude, Dlongitude, directions, duration} = this.state
+        let {Olatitude, Olongitude, Dlatitude, Dlongitude, directions} = this.state
         return(
             <Coord
                 submit={this.handleSubmit}
@@ -86,7 +89,6 @@ class Address extends Component{
                 DLat={Dlatitude}
                 DLon={Dlongitude}
                 submitDir={this.handleDirections}
-                duration={duration}
                 directions={directions}
             />
         )
